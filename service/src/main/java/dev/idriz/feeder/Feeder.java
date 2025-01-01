@@ -8,6 +8,7 @@ import dev.idriz.feeder.common.sentry.SentryManager;
 import dev.idriz.feeder.ws.WebSocketHandler;
 import dev.idriz.feeder.ws.WebSocketStatus;
 import dev.idriz.feeder.ws.channel.ClickWebSocketChannel;
+import dev.idriz.feeder.ws.channel.SwitchWebSocketChannel;
 import dev.idriz.feeder.ws.channel.ViewWebSocketChannel;
 import io.javalin.Javalin;
 import io.sentry.SentryLevel;
@@ -43,8 +44,9 @@ public class Feeder {
         final WebSocketHandler webSocketHandler = new WebSocketHandler(channelManager);
         channelManager
                 .registerChannel(new ClickWebSocketChannel(kafkaManager))
-                .registerChannel(new ViewWebSocketChannel(kafkaManager));
-        
+                .registerChannel(new ViewWebSocketChannel(kafkaManager))
+                .registerChannel(new SwitchWebSocketChannel(kafkaManager, sentryManager));
+
         app = Javalin.create()
                 .ws("/dev/idriz/feeder",
                         config -> {
