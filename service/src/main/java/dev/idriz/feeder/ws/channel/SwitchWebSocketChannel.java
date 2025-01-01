@@ -34,8 +34,8 @@ public class SwitchWebSocketChannel implements WebSocketChannel<SwitchWebSocketC
     @NotNull
     @Override
     public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ViewWebSocketPayload data) {
-        var url = data.origin();
-        var spent = data.spent();
+        String url = data.origin();
+        long spent = data.spent();
         if (spent < 0) {
             sentryManager.logException(
                     new IllegalArgumentException("Invalid switch message: " + data)

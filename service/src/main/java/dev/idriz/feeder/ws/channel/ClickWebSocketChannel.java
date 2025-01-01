@@ -32,8 +32,8 @@ public class ClickWebSocketChannel implements WebSocketChannel<ClickWebSocketCha
     @NotNull
     @Override
     public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ClickWebSocketPayload data) {
-        var url = data.url();
-        var elementDescriptor = data.elementDescriptor();
+        String url = data.url();
+        String elementDescriptor = data.elementDescriptor();
         kafkaManager.publish("click", url + "|" + elementDescriptor);
         return WebSocketStatus.OK;
     }

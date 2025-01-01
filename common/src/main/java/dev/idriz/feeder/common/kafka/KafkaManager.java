@@ -5,6 +5,8 @@ import dev.idriz.feeder.common.kafka.factory.DefaultKafkaProducerFactory;
 import dev.idriz.feeder.common.kafka.factory.KafkaConsumerFactory;
 import dev.idriz.feeder.common.kafka.factory.KafkaProducerFactory;
 import dev.idriz.feeder.common.kafka.listener.KafkaListener;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -67,18 +69,18 @@ public class KafkaManager {
         }
         listeners.put(listener.getGroupId(), listener);
 
-        var consumer = consumerFactory.createConsumer(listener.getTopics(), listener.getGroupId());
+        KafkaConsumer<String, String> consumer = consumerFactory.createConsumer(listener.getTopics(), listener.getGroupId());
         consumer.subscribe(listener.getTopics());
 
         consumers.put(listener.getGroupId(), consumer);
         consumerExecutor.submit(() -> {
-            var duration = Duration.ofSeconds(1);
+            Duration duration = Duration.ofSeconds(1);
             while (true) {
-                var records = consumer.poll(duration);
+                ConsumerRecords<String, String> records = consumer.poll(duration);
                 if (records == null) {
                     continue;
                 }
-                for (var record : records) {
+                for (ConsumerRecord<String, String> record : records) {
                     listener.onMessage(record.topic(), record.value());
                 }
             }
@@ -94,7 +96,7 @@ public class KafkaManager {
         Objects.requireNonNull(listener, "listener");
 
         listeners.remove(listener.getGroupId());
-        var consumer = consumers.remove(listener.getGroupId());
+        KafkaConsumer<String, String> consumer = consumers.remove(listener.getGroupId());
         if (consumer != null) {
             consumer.close();
         }
@@ -107,7 +109,7 @@ public class KafkaManager {
             throw new IllegalArgumentException("Message cannot be empty.");
         }
 
-        var producer = producers.get(topic);
+        KafkaProducer<String, String> producer = producers.get(topic);
         if (producer == null) {
             producer = producerFactory.createProducer();
             producers.put(topic, producer);

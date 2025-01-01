@@ -28,7 +28,7 @@ public class CTRListener implements KafkaListener {
     public void onMessage(@NotNull String topic, @NotNull String message) {
         switch (topic) {
             case "click" -> {
-                var split = message.split("\\|");
+                String[] split = message.split("\\|");
                 if (split.length != 2) {
                     sentryManager.logException(
                             new IllegalArgumentException("Invalid click message: " + message)
@@ -38,7 +38,7 @@ public class CTRListener implements KafkaListener {
                 clickCounter.labelValues(split[0], split[1]).inc();
             }
             case "view" -> {
-                var split = message.split("\\|");
+                String[] split = message.split("\\|");
                 if (split.length != 1) {
                     sentryManager.logException(
                             new IllegalArgumentException("Invalid view message: " + message)

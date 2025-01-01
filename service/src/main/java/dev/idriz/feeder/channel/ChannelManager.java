@@ -49,12 +49,12 @@ public class ChannelManager {
             // The edge case when our message just doesn't have a channel separator at all.
             return null;
         }
-        var splitOnAt = message.split(CHANNEL_SEPARATOR);
+        String[] splitOnAt = message.split(CHANNEL_SEPARATOR);
         if (splitOnAt.length == 0) {
             // We haven't found anything.
             return null;
         }
-        var found = splitOnAt[0];
+        String found = splitOnAt[0];
         if (found.isBlank()) {
             return null;
         }

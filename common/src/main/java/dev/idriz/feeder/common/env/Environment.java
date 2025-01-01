@@ -7,7 +7,7 @@ import java.util.function.Function;
 public class Environment {
 
     public static <T> T getEnv(String key, T defaultValue, Function<String, T> mapper) {
-        var result = System.getenv(key);
+        String result = System.getenv(key);
         if (result != null) {
             return mapper.apply(result);
         }

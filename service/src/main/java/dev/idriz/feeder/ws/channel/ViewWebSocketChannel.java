@@ -32,7 +32,7 @@ public class ViewWebSocketChannel implements WebSocketChannel<ViewWebSocketChann
     @NotNull
     @Override
     public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ViewWebSocketPayload data) {
-        var url = data.url();
+        String url = data.url();
         kafkaManager.publish("view", url);
         return WebSocketStatus.OK;
     }

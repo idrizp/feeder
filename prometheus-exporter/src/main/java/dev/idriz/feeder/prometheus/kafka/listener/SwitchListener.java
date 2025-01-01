@@ -33,15 +33,15 @@ public class SwitchListener implements KafkaListener {
 
     @Override
     public void onMessage(@NotNull String topic, @NotNull String message) {
-        var split = message.split("\\|");
+        String[] split = message.split("\\|");
         if (split.length != 3) {
             sentryManager.logException(
                     new IllegalArgumentException("Invalid switch message: " + message)
             );
         }
-        var destination = split[1];
-        var origin = split[0];
-        var spent = Long.parseLong(split[2]); // Includes how long the user spent on the origin page in milliseconds.
+        String destination = split[1];
+        String origin = split[0];
+        long spent = Long.parseLong(split[2]); // Includes how long the user spent on the origin page in milliseconds.
 
         switchCounter.labelValues(destination, origin).inc();
         timeSpentCounter.labelValues(origin, destination).inc(spent);

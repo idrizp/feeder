@@ -57,7 +57,7 @@ public class Feeder {
                                 );
                             });
                             config.onMessage((context) -> {
-                                var result = webSocketHandler.handle(context);
+                                WebSocketStatus result = webSocketHandler.handle(context);
                                 if (result != WebSocketStatus.OK) {
                                     // Log to sentry in case we have any discrepancy.
                                     sentryManager.logMessageWithSeverity(

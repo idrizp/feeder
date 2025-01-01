@@ -27,7 +27,7 @@ public class WebSocketHandler {
      * @return The status.
      */
     public @NotNull WebSocketStatus handle(WsMessageContext context) {
-        var message = context.message();
+        String message = context.message();
 
         // Handle the case when the data is empty.
         if (message.isEmpty()) {
@@ -43,7 +43,7 @@ public class WebSocketHandler {
             // This is a simple polling heartbeat. Should be fine.
             return WebSocketStatus.OK;
         }
-        var id = ChannelManager.retrieveChannelFromMessage(message);
+        String id = ChannelManager.retrieveChannelFromMessage(message);
         if (id == null) {
             context.closeSession(WsCloseStatus.ABNORMAL_CLOSURE, "Invalid channel provided.");
             return WebSocketStatus.INVALID_INITIAL_PAYLOAD;
@@ -57,11 +57,11 @@ public class WebSocketHandler {
             return WebSocketStatus.INVALID_CHANNEL_PROVIDED;
         }
 
-        var stripped = ChannelManager.stripChannel(message);
+        String stripped = ChannelManager.stripChannel(message);
 
         JsonMapper mapper = new JsonMapper();
         try {
-            var payload = mapper.readValue(stripped, channel.getPayloadType());
+            Object payload = mapper.readValue(stripped, channel.getPayloadType());
             return channel.onMessageReceived(context, payload);
         } catch (JsonProcessingException e) {
             closeSession(context, "Invalid payload.");
