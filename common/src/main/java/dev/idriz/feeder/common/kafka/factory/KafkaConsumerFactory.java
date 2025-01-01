@@ -1,5 +1,6 @@
-package dev.idriz.feeder.kafka.factory;
+package dev.idriz.feeder.common.kafka.factory;
 
+import dev.idriz.feeder.kafka.factory.DefaultKafkaConsumerFactory;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.jetbrains.annotations.NotNull;
 

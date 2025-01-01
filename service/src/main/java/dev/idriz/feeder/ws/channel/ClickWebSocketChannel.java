@@ -1,7 +1,7 @@
 package dev.idriz.feeder.ws.channel;
 
 import dev.idriz.feeder.channel.WebSocketChannel;
-import dev.idriz.feeder.kafka.KafkaManager;
+import dev.idriz.feeder.common.kafka.KafkaManager;
 import dev.idriz.feeder.ws.WebSocketStatus;
 import io.javalin.websocket.WsMessageContext;
 import org.jetbrains.annotations.NotNull;

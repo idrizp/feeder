@@ -1,8 +1,10 @@
-package dev.idriz.feeder.kafka;
+package dev.idriz.feeder.common.kafka;
 
-import dev.idriz.feeder.kafka.factory.KafkaConsumerFactory;
-import dev.idriz.feeder.kafka.factory.KafkaProducerFactory;
-import dev.idriz.feeder.kafka.listener.KafkaListener;
+import dev.idriz.feeder.common.kafka.factory.DefaultKafkaConsumerFactory;
+import dev.idriz.feeder.common.kafka.factory.DefaultKafkaProducerFactory;
+import dev.idriz.feeder.common.kafka.factory.KafkaConsumerFactory;
+import dev.idriz.feeder.common.kafka.factory.KafkaProducerFactory;
+import dev.idriz.feeder.common.kafka.listener.KafkaListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -38,6 +40,18 @@ public class KafkaManager {
     public KafkaManager(@NotNull KafkaConsumerFactory consumerFactory, @NotNull KafkaProducerFactory producerFactory) {
         this.producerFactory = Objects.requireNonNull(producerFactory, "producerFactory");
         this.consumerFactory = Objects.requireNonNull(consumerFactory, "consumerFactory");
+    }
+
+    /**
+     * Creates a new KafkaManager with the specified KafkaHost.
+     * @param kafkaHost The host of the Kafka broker.
+     * @return The KafkaManager.
+     */
+    public static KafkaManager createDefaults(final @NotNull String kafkaHost) {
+        return new KafkaManager(
+                new DefaultKafkaConsumerFactory(kafkaHost),
+                new DefaultKafkaProducerFactory(kafkaHost)
+        );
     }
 
     /**

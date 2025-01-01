@@ -1,4 +1,4 @@
-package dev.idriz.feeder.sentry;
+package dev.idriz.feeder.common.sentry;
 
 import io.sentry.Sentry;
 import io.sentry.SentryLevel;

@@ -1,11 +1,10 @@
 package dev.idriz.feeder;
 
 import dev.idriz.feeder.channel.ChannelManager;
-import dev.idriz.feeder.kafka.KafkaManager;
-import dev.idriz.feeder.kafka.factory.DefaultKafkaConsumerFactory;
-import dev.idriz.feeder.kafka.factory.DefaultKafkaProducerFactory;
-import dev.idriz.feeder.kafka.listener.CTRListener;
-import dev.idriz.feeder.sentry.SentryManager;
+import dev.idriz.feeder.common.kafka.KafkaManager;
+import dev.idriz.feeder.common.kafka.factory.DefaultKafkaConsumerFactory;
+import dev.idriz.feeder.common.kafka.factory.DefaultKafkaProducerFactory;
+import dev.idriz.feeder.common.sentry.SentryManager;
 import dev.idriz.feeder.ws.WebSocketHandler;
 import dev.idriz.feeder.ws.WebSocketStatus;
 import dev.idriz.feeder.ws.channel.ClickWebSocketChannel;
@@ -45,9 +44,7 @@ public class Feeder {
         channelManager
                 .registerChannel(new ClickWebSocketChannel(kafkaManager))
                 .registerChannel(new ViewWebSocketChannel(kafkaManager));
-
-        kafkaManager.registerListener(new CTRListener());
-
+        
         app = Javalin.create()
                 .ws("/dev/idriz/feeder",
                         config -> {

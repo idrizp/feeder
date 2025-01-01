@@ -1,4 +1,4 @@
-package dev.idriz.feeder.kafka.listener;
+package dev.idriz.feeder.common.kafka.listener;
 
 import org.jetbrains.annotations.NotNull;
 

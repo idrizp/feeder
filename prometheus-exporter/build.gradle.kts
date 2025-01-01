@@ -10,10 +10,15 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(project(":common"))
+    implementation("io.javalin:javalin:6.4.0")
+}
+
+java {
+    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 tasks.test {
-    useJUnitPlatform()
+    dependsOn(project(":common").tasks.test)
 }
