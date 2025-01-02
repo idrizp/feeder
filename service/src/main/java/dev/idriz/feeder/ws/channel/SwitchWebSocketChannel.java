@@ -22,7 +22,7 @@ public class SwitchWebSocketChannel implements WebSocketChannel<SwitchWebSocketC
         this.sentryManager = sentryManager;
     }
 
-    public record ViewWebSocketPayload(@NotNull String destination, long spent) {
+    public record ViewWebSocketPayload(@NotNull String destination) {
     }
 
     @NotNull
