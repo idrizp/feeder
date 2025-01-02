@@ -10,13 +10,14 @@ It will be accompanied by a frontend lightweight javascript file to measure clic
   - [x] An API to make working with Kafka producers/consumers easier.. maybe annotation based(I.E eventbus system)
 - [x] Sentry API
   - [x] An API to make working with Sentry easier for error logging
-- [ ] Grafana Integration
+- [x] Grafana Integration
   - [ ] Better statistical overview of frequency of navigation
-- [ ] Navigation metric(from where $\to$ what)
+- [x] Navigation metric(from where $\to$ what)
 - [x] Click metric(most often clicked elements on each page)
   - This is mostly handled by the frontend.
-- [ ] Hover metric(most hovered elements on each page)
-- [ ] Retention metric(how long the user stayed on a page)
+- [x] Retention metric(how long the user stayed on a page)
+- [x] Page view metric(how many times a page was viewed)
+- [ ] Handle bad payloads and close the session via some validation on JSON payloads.
 
 
 ---
