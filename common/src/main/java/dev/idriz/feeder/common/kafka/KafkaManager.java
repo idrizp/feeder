@@ -39,13 +39,15 @@ public class KafkaManager {
      *
      * @param consumerFactory The KafkaConsumerFactory.
      */
-    public KafkaManager(@NotNull KafkaConsumerFactory consumerFactory, @NotNull KafkaProducerFactory producerFactory) {
+    public KafkaManager(final @NotNull KafkaConsumerFactory consumerFactory,
+                        final @NotNull KafkaProducerFactory producerFactory) {
         this.producerFactory = Objects.requireNonNull(producerFactory, "producerFactory");
         this.consumerFactory = Objects.requireNonNull(consumerFactory, "consumerFactory");
     }
 
     /**
      * Creates a new KafkaManager with the specified KafkaHost.
+     *
      * @param kafkaHost The host of the Kafka broker.
      * @return The KafkaManager.
      */
@@ -61,7 +63,7 @@ public class KafkaManager {
      *
      * @param listener The listener.
      */
-    public void registerListener(@NotNull KafkaListener listener) {
+    public void registerListener(final @NotNull KafkaListener listener) {
         Objects.requireNonNull(listener, "listener");
 
         if (listeners.containsKey(listener.getGroupId())) {
@@ -92,7 +94,7 @@ public class KafkaManager {
      *
      * @param listener The listener.
      */
-    public void unregisterListener(@NotNull KafkaListener listener) {
+    public void unregisterListener(final @NotNull KafkaListener listener) {
         Objects.requireNonNull(listener, "listener");
 
         listeners.remove(listener.getGroupId());
@@ -102,7 +104,7 @@ public class KafkaManager {
         }
     }
 
-    public void publish(@NotNull String topic, @NotNull String message) {
+    public void publish(final @NotNull String topic, final @NotNull String message) {
         Objects.requireNonNull(topic, "topic");
         Objects.requireNonNull(message, "message");
         if (message.isEmpty()) {

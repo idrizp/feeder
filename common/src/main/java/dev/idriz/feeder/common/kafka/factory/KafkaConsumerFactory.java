@@ -1,6 +1,5 @@
 package dev.idriz.feeder.common.kafka.factory;
 
-import dev.idriz.feeder.kafka.factory.DefaultKafkaConsumerFactory;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,9 +18,5 @@ public interface KafkaConsumerFactory {
      * @return The KafkaConsumer.
      */
     KafkaConsumer<String, String> createConsumer(@NotNull List<String> topics, @NotNull String groupId);
-
-    static KafkaConsumerFactory createDefault(@NotNull String host) {
-        return new DefaultKafkaConsumerFactory(host);
-    }
 
 }

@@ -27,7 +27,7 @@ public class Feeder {
 
     private Javalin app;
 
-    public Feeder(int httpPort, @NotNull String kafkaHost, @NotNull String sentryDsn) {
+    public Feeder(int httpPort, final @NotNull String kafkaHost, final @NotNull String sentryDsn) {
 
         this.httpPort = httpPort;
         this.kafkaHost = Objects.requireNonNull(kafkaHost, "kafkaHost");

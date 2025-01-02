@@ -6,7 +6,7 @@ import java.util.function.Function;
 
 public class Environment {
 
-    public static <T> T getEnv(String key, T defaultValue, Function<String, T> mapper) {
+    public static <T> T getEnv(final @NotNull String key, final @NotNull T defaultValue, final @NotNull Function<String, T> mapper) {
         String result = System.getenv(key);
         if (result != null) {
             return mapper.apply(result);
@@ -14,7 +14,7 @@ public class Environment {
         return defaultValue;
     }
 
-    public static String getEnv(@NotNull String key, @NotNull String defaultValue) {
+    public static String getEnv(final @NotNull String key, final @NotNull String defaultValue) {
         return getEnv(key, defaultValue, k -> k);
     }
 

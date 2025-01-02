@@ -32,7 +32,7 @@ public class SwitchListener implements KafkaListener {
     }
 
     @Override
-    public void onMessage(@NotNull String topic, @NotNull String message) {
+    public void onMessage(final @NotNull String topic, final @NotNull String message) {
         String[] split = message.split("\\|");
         if (split.length != 3) {
             sentryManager.logException(

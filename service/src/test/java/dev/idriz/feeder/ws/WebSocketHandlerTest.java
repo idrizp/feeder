@@ -16,13 +16,13 @@ import static org.mockito.Mockito.mock;
 class WebSocketHandlerTest {
 
     // Helper method to create a mock WsMessageContext
-    private @NotNull WsMessageContext mockContext(String data) {
+    private @NotNull WsMessageContext mockContext(final @NotNull String data) {
         Session session = mock(Session.class);
         return new WsMessageContext(UUID.randomUUID().toString(), session, data);
     }
 
     // Helper method to create an empty WebSocketHandler
-    private @NotNull WebSocketHandler emptyWebSocketHandler(ChannelManager channelManager) {
+    private @NotNull WebSocketHandler emptyWebSocketHandler(final @NotNull ChannelManager channelManager) {
         return new WebSocketHandler(channelManager);
     }
 

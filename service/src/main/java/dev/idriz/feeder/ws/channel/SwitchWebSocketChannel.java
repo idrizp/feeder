@@ -17,7 +17,8 @@ public class SwitchWebSocketChannel implements WebSocketChannel<SwitchWebSocketC
         this.sentryManager = sentryManager;
     }
 
-    public record ViewWebSocketPayload(String origin, String destination, long spent) { }
+    public record ViewWebSocketPayload(@NotNull String origin, @NotNull String destination, long spent) {
+    }
 
     @NotNull
     @Override
@@ -33,7 +34,7 @@ public class SwitchWebSocketChannel implements WebSocketChannel<SwitchWebSocketC
 
     @NotNull
     @Override
-    public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ViewWebSocketPayload data) {
+    public WebSocketStatus onMessageReceived(final @NotNull WsMessageContext context, final @NotNull ViewWebSocketPayload data) {
         String url = data.origin();
         long spent = data.spent();
         if (spent < 0) {

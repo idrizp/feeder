@@ -10,7 +10,7 @@ public class ViewWebSocketChannel implements WebSocketChannel<ViewWebSocketChann
 
     private final KafkaManager kafkaManager;
 
-    public ViewWebSocketChannel(KafkaManager kafkaManager) {
+    public ViewWebSocketChannel(final @NotNull KafkaManager kafkaManager) {
         this.kafkaManager = kafkaManager;
     }
 
@@ -31,7 +31,7 @@ public class ViewWebSocketChannel implements WebSocketChannel<ViewWebSocketChann
 
     @NotNull
     @Override
-    public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ViewWebSocketPayload data) {
+    public WebSocketStatus onMessageReceived(final @NotNull WsMessageContext context, final @NotNull ViewWebSocketPayload data) {
         String url = data.url();
         kafkaManager.publish("view", url);
         return WebSocketStatus.OK;

@@ -16,7 +16,7 @@ public class WebSocketHandler {
     public static final int MAX_PAYLOAD_LENGTH_IN_BYTES = 64_000; // Anything more than 64 KB should be flagged.
     private final ChannelManager channelManager;
 
-    public WebSocketHandler(ChannelManager channelManager) {
+    public WebSocketHandler(final @NotNull ChannelManager channelManager) {
         this.channelManager = channelManager;
     }
 
@@ -26,7 +26,7 @@ public class WebSocketHandler {
      * @param context The context.
      * @return The status.
      */
-    public @NotNull WebSocketStatus handle(WsMessageContext context) {
+    public @NotNull WebSocketStatus handle(final @NotNull WsMessageContext context) {
         String message = context.message();
 
         // Handle the case when the data is empty.
@@ -76,7 +76,7 @@ public class WebSocketHandler {
      * @param context The context.
      * @param message The message.
      */
-    public static void closeSession(@NotNull WsMessageContext context, String message) {
+    public static void closeSession(final @NotNull WsMessageContext context, final String message) {
         context.closeSession(WsCloseStatus.ABNORMAL_CLOSURE, message);
     }
 

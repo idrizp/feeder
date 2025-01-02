@@ -10,7 +10,7 @@ public class ClickWebSocketChannel implements WebSocketChannel<ClickWebSocketCha
 
     private final KafkaManager kafkaManager;
 
-    public ClickWebSocketChannel(KafkaManager kafkaManager) {
+    public ClickWebSocketChannel(final @NotNull KafkaManager kafkaManager) {
         this.kafkaManager = kafkaManager;
     }
 
@@ -31,7 +31,7 @@ public class ClickWebSocketChannel implements WebSocketChannel<ClickWebSocketCha
 
     @NotNull
     @Override
-    public WebSocketStatus onMessageReceived(@NotNull WsMessageContext context, @NotNull ClickWebSocketPayload data) {
+    public WebSocketStatus onMessageReceived(final @NotNull WsMessageContext context, final @NotNull ClickWebSocketPayload data) {
         String url = data.url();
         String elementDescriptor = data.elementDescriptor();
         kafkaManager.publish("click", url + "|" + elementDescriptor);

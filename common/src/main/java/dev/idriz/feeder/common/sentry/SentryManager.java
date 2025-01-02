@@ -17,7 +17,7 @@ public class SentryManager {
      *
      * @param sentryDsn The Sentry DSN.
      */
-    public SentryManager(@NotNull String sentryDsn) {
+    public SentryManager(final @NotNull String sentryDsn) {
         Objects.requireNonNull(sentryDsn, "dsn");
         Sentry.init(options -> {
             options.setDsn(sentryDsn);  // Replace with your actual Sentry DSN
@@ -30,7 +30,7 @@ public class SentryManager {
      *
      * @param exception The exception to log.
      */
-    public void logException(@NotNull Exception exception) {
+    public void logException(final @NotNull Exception exception) {
         Objects.requireNonNull(exception, "exception");
         Sentry.captureException(exception);  // Capture the exception
     }
@@ -40,7 +40,7 @@ public class SentryManager {
      *
      * @param message The message to log.
      */
-    public void logMessage(@NotNull String message) {
+    public void logMessage(final @NotNull String message) {
         Objects.requireNonNull(message, "message");
         if (message.isEmpty()) {
             throw new IllegalArgumentException("Message cannot be empty.");
@@ -54,7 +54,7 @@ public class SentryManager {
      * @param message The message to log.
      * @param context The context to add to the event.
      */
-    public void logEvent(@NotNull String message, @NotNull String context) {
+    public void logEvent(final @NotNull String message, final @NotNull String context) {
         Objects.requireNonNull(message, "message");
         Objects.requireNonNull(context, "context");
         if (message.isEmpty()) {
@@ -74,7 +74,7 @@ public class SentryManager {
      * @param message The message to log.
      * @param level   The severity level.
      */
-    public void logMessageWithSeverity(@NotNull String message, @NotNull SentryLevel level) {
+    public void logMessageWithSeverity(final @NotNull String message, final @NotNull SentryLevel level) {
         Objects.requireNonNull(message, "message");
         Objects.requireNonNull(level, "level");
         if (message.isEmpty()) {

@@ -25,7 +25,7 @@ public class CTRListener implements KafkaListener {
     }
 
     @Override
-    public void onMessage(@NotNull String topic, @NotNull String message) {
+    public void onMessage(final @NotNull String topic, final @NotNull String message) {
         switch (topic) {
             case "click" -> {
                 String[] split = message.split("\\|");

@@ -23,7 +23,7 @@ public class ChannelManager {
      * @param id The id of the channel.
      * @return The channel under that specific id.
      */
-    public @Nullable WebSocketChannel<?> getChannel(@NotNull String id) {
+    public @Nullable WebSocketChannel<?> getChannel(final @NotNull String id) {
         return channels.get(id.toLowerCase());
     }
 
@@ -33,17 +33,18 @@ public class ChannelManager {
      * @param webSocketChannel The channel.
      * @return The channel manager instance.
      */
-    public @NotNull ChannelManager registerChannel(@NotNull WebSocketChannel<?> webSocketChannel) {
+    public @NotNull ChannelManager registerChannel(final @NotNull WebSocketChannel<?> webSocketChannel) {
         channels.put(webSocketChannel.getName().toLowerCase(), webSocketChannel);
         return this;
     }
 
     /**
      * Retrieves the channel from a raw string message.
+     *
      * @param message The message.
      * @return The channel retrieved from the message.
      */
-    public static @Nullable String retrieveChannelFromMessage(@NotNull String message) {
+    public static @Nullable String retrieveChannelFromMessage(final @NotNull String message) {
         Objects.requireNonNull(message, "The message is null.");
         if (!message.contains("|")) {
             // The edge case when our message just doesn't have a channel separator at all.

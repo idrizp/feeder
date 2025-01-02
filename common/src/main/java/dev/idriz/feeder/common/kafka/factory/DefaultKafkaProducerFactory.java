@@ -12,7 +12,7 @@ public class DefaultKafkaProducerFactory implements KafkaProducerFactory {
 
     private final String host;
 
-    public DefaultKafkaProducerFactory(@NotNull String host) {
+    public DefaultKafkaProducerFactory(final @NotNull String host) {
         this.host = Objects.requireNonNull(host, "host");
     }
 

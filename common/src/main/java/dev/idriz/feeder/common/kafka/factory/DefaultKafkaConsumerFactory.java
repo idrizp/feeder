@@ -21,12 +21,12 @@ public class DefaultKafkaConsumerFactory implements KafkaConsumerFactory {
      *
      * @param host The host.
      */
-    public DefaultKafkaConsumerFactory(@NotNull String host) {
+    public DefaultKafkaConsumerFactory(final @NotNull String host) {
         this.host = host;
     }
 
     @Override
-    public KafkaConsumer<String, String> createConsumer(@NotNull List<String> topics, @NotNull String groupId) {
+    public KafkaConsumer<String, String> createConsumer(final @NotNull List<String> topics, final @NotNull String groupId) {
         Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.host);
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);

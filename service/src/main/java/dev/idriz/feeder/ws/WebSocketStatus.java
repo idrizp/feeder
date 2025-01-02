@@ -27,7 +27,7 @@ public enum WebSocketStatus {
 
     private final int code;
 
-    WebSocketStatus(int code) {
+    WebSocketStatus(final int code) {
         this.code = code;
     }
 

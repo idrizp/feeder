@@ -28,6 +28,6 @@ public interface KafkaListener {
      * @param topic   The topic.
      * @param message The message.
      */
-    void onMessage(@NotNull String topic, @NotNull String message);
+    void onMessage(final @NotNull String topic, final @NotNull String message);
 
 }
