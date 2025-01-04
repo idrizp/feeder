@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.gradleup.shadow") version "9.0.0-beta4"
 }
 
 group = "dev.idriz"
@@ -25,6 +26,14 @@ dependencies {
 java {
     targetCompatibility = JavaVersion.VERSION_21
     sourceCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.jar {
+    manifest {
+        attributes (
+                "Main-Class" to "dev.idriz.feeder.service.Application"
+        )
+    }
 }
 
 tasks.test {

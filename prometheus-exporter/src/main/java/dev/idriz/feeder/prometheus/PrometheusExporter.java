@@ -10,12 +10,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+/**
+ * The main class of the Prometheus exporter.
+ * It is responsible for exporting metrics to Prometheus.
+ * It uses the Prometheus Java SDK to do so.
+ *
+ * @author Idriz Pelaj
+ */
 public class PrometheusExporter {
 
     private final KafkaManager kafkaManager;
     private final SentryManager sentryManager;
 
     private final int exporterPort;
+
+    private HTTPServer httpServer;
 
     public PrometheusExporter(int exporterPort, @NotNull String kafkaHost, @NotNull String sentryDsn) {
         this.exporterPort = exporterPort;
@@ -61,16 +70,20 @@ public class PrometheusExporter {
                 timeSpentCounter
         ));
 
-        try (HTTPServer server = HTTPServer.builder().port(exporterPort).buildAndStart()) {
+        try {
+            httpServer = HTTPServer.builder().port(exporterPort).buildAndStart();
             sentryManager.logMessage("Prometheus exporter started on port " + exporterPort);
         } catch (IOException e) {
             sentryManager.logException(e);
-            System.exit(1);
+            System.exit(0);
         }
     }
 
     public void shutdown() {
         sentryManager.logMessage("Prometheus exporter shutting down");
+        httpServer.stop();
+        sentryManager.logMessage("Prometheus exporter shut down.");
+
     }
 
 }

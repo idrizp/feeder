@@ -1,9 +1,9 @@
-package dev.idriz.feeder.ws;
+package dev.idriz.feeder.service.ws;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import dev.idriz.feeder.channel.ChannelManager;
-import dev.idriz.feeder.channel.WebSocketChannel;
+import dev.idriz.feeder.service.channel.ChannelManager;
+import dev.idriz.feeder.service.channel.WebSocketChannel;
 import io.javalin.websocket.WsCloseStatus;
 import io.javalin.websocket.WsMessageContext;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +41,7 @@ public class WebSocketHandler {
 
         if (message.equals("HEARTBEAT")) {
             // This is a simple polling heartbeat. Should be fine.
-            return WebSocketStatus.OK;
+            return WebSocketStatus.HEARTBEAT;
         }
         String id = ChannelManager.retrieveChannelFromMessage(message);
         if (id == null) {

@@ -1,4 +1,4 @@
-package dev.idriz.feeder.channel;
+package dev.idriz.feeder.service.channel;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

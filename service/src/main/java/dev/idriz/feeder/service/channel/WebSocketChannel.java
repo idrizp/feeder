@@ -1,6 +1,6 @@
-package dev.idriz.feeder.channel;
+package dev.idriz.feeder.service.channel;
 
-import dev.idriz.feeder.ws.WebSocketStatus;
+import dev.idriz.feeder.service.ws.WebSocketStatus;
 import io.javalin.websocket.WsMessageContext;
 import org.jetbrains.annotations.NotNull;
 

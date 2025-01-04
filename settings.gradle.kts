@@ -1,4 +1,3 @@
 rootProject.name = "feeder"
-include("prometheus-exporter")
-include("service")
-include("common")
+
+include("common", "service", "prometheus-exporter")

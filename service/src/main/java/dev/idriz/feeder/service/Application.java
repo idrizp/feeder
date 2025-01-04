@@ -1,4 +1,4 @@
-package dev.idriz.feeder;
+package dev.idriz.feeder.service;
 
 import static dev.idriz.feeder.common.env.Environment.getEnv;
 
@@ -10,6 +10,7 @@ public class Application {
         String kafkaHost = getEnv("KAFKA_HOST", "localhost:9092");
         String sentryDsn = getEnv("SENTRY_DSN", "sentry-dsn");
 
+        System.out.println(kafkaHost);
         Feeder feeder = new Feeder(httpPort, kafkaHost, sentryDsn);
         feeder.start();
 

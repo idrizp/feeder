@@ -1,7 +1,7 @@
-package dev.idriz.feeder.ws;
+package dev.idriz.feeder.service.ws;
 
-import dev.idriz.feeder.channel.ChannelManager;
-import dev.idriz.feeder.channel.WebSocketChannel;
+import dev.idriz.feeder.service.channel.ChannelManager;
+import dev.idriz.feeder.service.channel.WebSocketChannel;
 import io.javalin.websocket.WsMessageContext;
 import org.eclipse.jetty.websocket.api.Session;
 import org.jetbrains.annotations.NotNull;
@@ -37,14 +37,14 @@ class WebSocketHandlerTest {
     @Test
     void handle_shouldAllowValidInitialPayload() {
         channelManager.registerChannel(new TestWebSocketChannel());
-        final WsMessageContext context = mockContext("test-channel@\"data\"");
+        final WsMessageContext context = mockContext("test-channel|\"data\"");
         assertEquals(WebSocketStatus.OK, webSocketHandler.handle(context));
     }
 
     @Test
     void handle_shouldAllowValidChannelProvided() {
         channelManager.registerChannel(new TestWebSocketChannel());
-        final WsMessageContext context = mockContext("test-channel@\"data\"");
+        final WsMessageContext context = mockContext("test-channel|\"data\"");
         assertEquals(WebSocketStatus.OK, webSocketHandler.handle(context));
     }
 
@@ -56,7 +56,7 @@ class WebSocketHandlerTest {
 
     @Test
     void handle_shouldNotAllowInvalidChannelProvided() {
-        final WsMessageContext context = mockContext("somechannel@data");
+        final WsMessageContext context = mockContext("somechannel|data");
         assertEquals(WebSocketStatus.INVALID_CHANNEL_PROVIDED, webSocketHandler.handle(context));
     }
 

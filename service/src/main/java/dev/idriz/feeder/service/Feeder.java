@@ -1,15 +1,15 @@
-package dev.idriz.feeder;
+package dev.idriz.feeder.service;
 
-import dev.idriz.feeder.channel.ChannelManager;
+import dev.idriz.feeder.service.channel.ChannelManager;
 import dev.idriz.feeder.common.kafka.KafkaManager;
 import dev.idriz.feeder.common.kafka.factory.DefaultKafkaConsumerFactory;
 import dev.idriz.feeder.common.kafka.factory.DefaultKafkaProducerFactory;
 import dev.idriz.feeder.common.sentry.SentryManager;
-import dev.idriz.feeder.ws.WebSocketHandler;
-import dev.idriz.feeder.ws.WebSocketStatus;
-import dev.idriz.feeder.ws.channel.ClickWebSocketChannel;
-import dev.idriz.feeder.ws.channel.SwitchWebSocketChannel;
-import dev.idriz.feeder.ws.channel.ViewWebSocketChannel;
+import dev.idriz.feeder.service.ws.WebSocketHandler;
+import dev.idriz.feeder.service.ws.WebSocketStatus;
+import dev.idriz.feeder.service.ws.channel.ClickWebSocketChannel;
+import dev.idriz.feeder.service.ws.channel.SwitchWebSocketChannel;
+import dev.idriz.feeder.service.ws.channel.ViewWebSocketChannel;
 import io.javalin.Javalin;
 import io.sentry.SentryLevel;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +48,7 @@ public class Feeder {
                 .registerChannel(new SwitchWebSocketChannel(kafkaManager, sentryManager));
 
         app = Javalin.create()
-                .ws("/dev/idriz/feeder",
+                .ws("/feeder",
                         config -> {
                             config.onConnect((context) -> {
                                 sentryManager.logMessageWithSeverity(
@@ -58,11 +58,18 @@ public class Feeder {
                             });
                             config.onMessage((context) -> {
                                 WebSocketStatus result = webSocketHandler.handle(context);
+                                if (result == WebSocketStatus.HEARTBEAT) {
+                                    // This is a simple polling heartbeat. Should be fine.
+                                    return;
+                                }
+                                sentryManager.logMessageWithSeverity(
+                                        "WebSocket message received by " + context.sessionId(),
+                                        SentryLevel.INFO
+                                );
                                 if (result != WebSocketStatus.OK) {
                                     // Log to sentry in case we have any discrepancy.
-                                    sentryManager.logMessageWithSeverity(
-                                            "Failed WebSocket payload:" + result.name() + " by " + context.sessionId(),
-                                            SentryLevel.ERROR
+                                    sentryManager.logMessage(
+                                            "Failed WebSocket payload:" + result.name() + " by " + context.sessionId()
                                     );
                                 }
                             });
