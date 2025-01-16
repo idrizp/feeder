@@ -19,6 +19,18 @@ It will be accompanied by a frontend lightweight javascript file to measure clic
 - [x] Page view metric(how many times a page was viewed)
 - [ ] Handle bad payloads and close the session via some validation on JSON payloads.
 
+To run the project, you may use the docker-compose.yml file by running the command:
+
+```bash
+EXPORT SENTRY_DSN=your_sentry_dsn docker-compose up -d
+```
+
+To run the client, you may go into the client directory and run the following:
+
+```bash
+npm install
+npm run dev
+```
 
 ---
 Copyright &copy; 2024 Idriz Pelaj
